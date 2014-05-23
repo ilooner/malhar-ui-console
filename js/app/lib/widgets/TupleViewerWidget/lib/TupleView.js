@@ -25,7 +25,6 @@ var TupleView = BaseView.extend({
     },
     
     render: function() {
-        
         var json = this.model.serialize(this.recording);
         var markup = this.template(json);
         this.$el.html(markup);
