@@ -20,6 +20,7 @@ var BaseView = DT.widgets.ListWidget;
 var SystemAlertCollection = DT.lib.SystemAlertCollection;
 var columns = require('./columns');
 var Palette = require('./SystemAlertsPalette');
+var Tabled = DT.lib.Tabled;
 
 /**
  * SystemAlertsWidget
