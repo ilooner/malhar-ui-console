@@ -20,6 +20,7 @@ var ApplicationCollection = DT.lib.ApplicationCollection;
 // widgets
 var AppListWidget = require('../widgets/AppListWidget');
 var ClusterOverviewWidget = require('../widgets/ClusterOverviewWidget');
+var SystemAlertsWidget = require('../widgets/SystemAlertsWidget');
 
 
 /**
@@ -29,13 +30,16 @@ var ClusterOverviewWidget = require('../widgets/ClusterOverviewWidget');
 var OpsHomePageView = BasePageView.extend({
     
     pageName: 'OpsHomePageView',
+
+    storageHash: 'd9fb5r5w95',
     
     defaultDashes: [
         {
             dash_id: 'default',
             widgets: [
                 { widget: 'ClusterOverview', id: 'Cluster Overview' },
-                { widget: 'AppList', id: 'Application List' }
+                { widget: 'AppList', id: 'Application List', width: 67 },
+                { widget: 'SystemAlerts', id: 'System Alerts', width: 33 }
             ]
         }
     ],
@@ -74,6 +78,12 @@ var OpsHomePageView = BasePageView.extend({
                 inject: {
                     dataSource: this.dataSource
                 }
+            },
+            {
+                name: 'SystemAlerts',
+                defaultId: 'System Alerts',
+                view: SystemAlertsWidget,
+                limit: 0
             }
         ]);
         this.loadDashboards('default');
