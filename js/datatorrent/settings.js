@@ -53,6 +53,7 @@ exports = module.exports = {
         Recording                :'/ws/:v/applications/:appId/physicalPlan/operators/:operatorId/recordings',
         RecordingTuples          :'/ws/:v/applications/:appId/physicalPlan/operators/:operatorId/recordings/:startTime/tuples',
         StramEvent               :'/ws/:v/applications/:appId/events',
+        SystemAlert              :'/ws/:v/systemAlerts/alerts',
         User                     :'/ws/:v/profile/user'
     },
     
