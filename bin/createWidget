@@ -78,10 +78,7 @@ function createCSS(err) {
     fs.writeFileSync(cssname, '');
     
     // Add to index.built.less
-    fs.appendFileSync(__dirname + '/../css/index.built.less', '\n@import url("../js/app/lib/widgets/' + name + '/' + name + '.less");');
-    
-    // Add to index.css
-    fs.appendFile(__dirname + '/../css/index.css', '\n@import url("../js/app/lib/widgets/' + name + '/' + name + '.css");', createTemplate);
+    fs.appendFileSync(__dirname + '/../css/index.less', '\n@import "../js/app/lib/widgets/' + name + '/' + name + '.less";');
 }
 
 function createTemplate(err) {
