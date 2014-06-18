@@ -7,32 +7,41 @@ var SystemAlertsPalette = ListPalette.extend({
 
     events: {
         'click .refreshAlerts': 'refreshAlerts',
-        'click .addNewAlert': 'addAlert'
+        'click .addNewAlert': 'addAlert',
+        'click .viewAlert': 'viewAlert'
     },
 
     refreshAlerts: function(e) {
-        e.preventDefault();
+        if (e && typeof e.preventDefault === 'function') {
+            e.preventDefault();
+        }
         this.collection.fetch();
     },
 
     addAlert: function(e) {
         e.preventDefault();
         var model = new SystemAlertModel();
+        this.openModal(model);
+    },
+
+    viewAlert: function(e) {
+        e.preventDefault();
+        var selected = this.getSelected()[0];
+        if (selected) {
+            this.openModal(selected);
+        }
+    },
+
+    openModal: function(model) {
         var modalView = new SystemAlertModalView({
             model: model
         });
         modalView.addToDOM().launch();
         modalView.promise().then(
-            model.save.bind(model),
-            function() {
-                console.log(model.toJSON())
-            },
+            this.refreshAlerts.bind(this),
+            this.refreshAlerts.bind(this),
             this.collection.fetch.bind(this.collection)
         );
-    },
-
-    viewAlert: function(e) {
-
     },
 
     template: kt.make(__dirname+'/SystemAlertsPalette.html')

@@ -1,7 +1,7 @@
 var formatters = DT.formatters;
 
 function nameFormat(name, alert) {
-    return '<a href="#ops/systemAlerts/' + name + '">' + name + '</a>';
+    return '<a href="#" class="inspectAlert" data-name="' + name + '">' + name + '</a>';
 }
 
 function timeThresholdFormat(millis, row) {

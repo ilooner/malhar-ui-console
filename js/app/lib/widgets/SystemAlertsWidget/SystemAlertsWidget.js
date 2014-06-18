@@ -46,6 +46,18 @@ var SystemAlertsWidget = BaseView.extend({
             collection: this.collection
         }));
         
+    },
+
+    events: {
+        'click .inspectAlert': 'inspectAlert'
+    },
+
+    inspectAlert: function(e) {
+        e.preventDefault();
+        var selected = this.collection.get($(e.target).data('name'));
+        if (selected) {
+            this.subview('palette').openModal(selected);
+        }
     }
     
 });

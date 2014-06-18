@@ -1,4 +1,4 @@
-<form class="system-alert-form">
+<form class="system-alert-form" action="#">
 
     <p>
         
@@ -7,16 +7,34 @@
     <fieldset>
         
         <label for="name">Alert Name:</label>
+        <% if (errors.name) { %>
+            <label for="name" class="help-block validation-error"><%= errors.name %></label>
+        <% } %>
         <input type="text" data-bind="value:name" placeholder="a unique name">
+        
 
         <label for="timeThresholdMillis">Time Threshold (Milliseconds)</label>
+        <% if (errors.timeThresholdMillis) { %>
+            <label for="timeThresholdMillis" class="help-block validation-error"><%= errors.timeThresholdMillis %></label>
+        <% } %>
         <input type="text" data-bind="value:integer(timeThresholdMillis)" placeholder="milliseconds">
+        
 
         <label for="email">Email Address</label>
+        <% if (errors.email) { %>
+            <label for="email" class="help-block validation-error"><%= errors.email %></label>
+        <% } %>
         <input type="text" data-bind="value:email" placeholder="alerts sent here">
+        
 
         <label for="condition">Condition</label>
-        <textarea name="condition" class="system-alert-condition"></textarea>
+        <% if (errors.condition) { %>
+            <label for="condition" class="help-block validation-error"><%= errors.condition %></label>
+        <% } %>
+        <textarea name="condition" class="system-alert-condition" data-bind="value:condition"></textarea>
+        <p class="help-block">
+            Use the variable <code>_topic</code> to access system metrics.
+        </p>
 
     </fieldset>
 

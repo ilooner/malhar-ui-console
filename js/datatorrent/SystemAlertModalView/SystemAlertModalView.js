@@ -16,21 +16,44 @@ var SystemAlertModalView = BaseView.extend({
 
     cancelText: text('cancel'),
 
+    events: {
+        'click .cancelBtn': 'onCancel',
+        'click .confirmBtn': 'onConfirm',
+        'submit .system-alert-form': 'onConfirm'
+    },
+
     closeBtn: false,
 
     body: function() {
-        return this.template({});
+        return this.template({
+            errors: this.model.validationError || {}
+        });
     },
 
     template: kt.make(__dirname+'/SystemAlertModalView.html'),
 
     postRender: function() {
         // Set up epoxy binding
+        if (this.epoxyBindings) {
+            this.epoxyBindings.remove();
+        }
         this.epoxyBindings = new Epoxy.View({
             el: this.el,
             model: this.model
         });
         this.epoxyBindings.listenTo(this, 'clean_up', this.epoxyBindings.remove);
+    },
+
+    onConfirm: function(evt) {
+        evt.preventDefault();
+        if (this.model.isValid()) {
+            this.model.save();
+            this.deferred.resolve();
+            this.destroy();
+        } else {
+            this.renderBody();
+            this.epoxyBindings.applyBindings();
+        }
     },
 
     launchOptions: {

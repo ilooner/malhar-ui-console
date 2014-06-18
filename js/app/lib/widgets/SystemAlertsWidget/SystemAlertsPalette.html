@@ -1,8 +1,16 @@
 <span class="select-status"><strong><%= selected.length %></strong> <%= DT.text('row(s) selected') %></span>
 <div class="palette-actions">
+
+    <% if (selected.length === 1) { %>
+    <button class="viewAlert btn btn-primary">
+        <i class="icon-eye-open icon-white"></i>
+        inspect
+    </button>
+    <% } %>
+
     <button class="btn btn-success addNewAlert">
         <i class="icon-plus icon-white"></i>
-        add system alert
+        add alert
     </button>
     <button class="btn btn-info refreshAlerts">
         <i class="icon-refresh icon-white"></i>
