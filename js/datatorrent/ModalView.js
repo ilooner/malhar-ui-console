@@ -46,11 +46,11 @@ var ModalView = BaseView.extend({
 	render: function() {
 
 		var html = this.BASE_MODAL_TEMPLATE({
-			title: this.title,
-			body: this.body(),
-			confirmText: this.confirmText,
-			cancelText: this.cancelText,
-            closeBtn: this.closeBtn
+			title: _.result(this, 'title'),
+			body: _.result(this, 'body'),
+			confirmText: _.result(this, 'confirmText'),
+			cancelText: _.result(this, 'cancelText'),
+            closeBtn: _.result(this, 'closeBtn')
 		});
 
 		this.$el.html(html);
