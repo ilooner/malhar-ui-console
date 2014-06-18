@@ -9,7 +9,9 @@ var SystemAlertCollection = BaseCollection.extend({
 
     url: function() {
         return this.resourceURL('SystemAlert');
-    }
+    },
+
+    responseTransform: 'alerts'
 
 });
 
