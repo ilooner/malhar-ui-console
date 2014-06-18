@@ -5,7 +5,10 @@ var SystemAlertModel = BaseModel.extend({
     idAttribute: 'name',
 
     defaults: {
-        
+        name: '',
+        condition: '',
+        email: '',
+        timeThresholdMillis: 0
     }
 
 });

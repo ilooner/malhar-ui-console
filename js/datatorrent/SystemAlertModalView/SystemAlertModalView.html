@@ -1,0 +1,25 @@
+<form class="system-alert-form">
+
+    <p>
+        
+    </p>
+    
+    <fieldset>
+        
+        <label for="name">Alert Name:</label>
+        <input type="text" data-bind="value:name" placeholder="a unique name">
+
+        <label for="timeThresholdMillis">Time Threshold (Milliseconds)</label>
+        <input type="text" data-bind="value:integer(timeThresholdMillis)" placeholder="milliseconds">
+
+        <label for="email">Email Address</label>
+        <input type="text" data-bind="value:email" placeholder="alerts sent here">
+
+        <label for="condition">Condition</label>
+        <textarea name="condition" class="system-alert-condition"></textarea>
+
+    </fieldset>
+
+
+
+</form>

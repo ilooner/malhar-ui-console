@@ -47,6 +47,9 @@ require('../vendor/jsplumb/jquery.jsPlumb-1.5.2-min.js');
 require('../vendor/jquery-ui/ui/minified/jquery-ui.min.js');
 require('../vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker');
 
+// Include epoxy filters
+require('./EpoxyFilters');
+
 // Models
 var DataSource   = require('./DataSource');
 var NavModel     = require('./NavModel');
@@ -60,13 +63,6 @@ var HeaderView = require('./HeaderView');
 
 // Settings
 var settings = require('./settings');
-
-// App-wide epoxy filters, etc
-var Epoxy = require('backbone.epoxy');
-Epoxy.binding.addFilter('equal', function(attr, value) {
-    return attr == value;
-});
-
 
 // App Class Definition
 var App = BaseView.extend({

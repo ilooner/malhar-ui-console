@@ -86,6 +86,7 @@ var datatorrent = {
         StreamPortCollection         : require('./StreamPortCollection'),
         StreamPortModel              : require('./StreamPortModel'),
         SystemAlertCollection        : require('./SystemAlertCollection'),
+        SystemAlertModalView         : require('./SystemAlertModalView'),
         SystemAlertModel             : require('./SystemAlertModel'),
         Tabled                       : require('./tabled'),
         TupleCollection              : require('./TupleCollection'),
