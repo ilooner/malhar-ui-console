@@ -118,9 +118,37 @@ function date(term, value) {
     }
 }
 
+function timeChunk(term, value) {
+    value *= 1;
+    var first_two = term.substr(0,2);
+    var first_char = term[0];
+    var against_1 = (term.substr(1)).trim();
+    var against_2 = (term.substr(2)).trim();
+    if ( first_two == "<=" ) {
+        var lowerbound = parseDateFilter(against_2);
+        return lowerbound >= value;
+    }
+    else if ( first_two == ">=" ) {
+        var upperbound = parseDateFilter(against_2);
+        return upperbound <= value;
+    }
+    else if ( first_char == "<" ) {
+        var lowerbound = parseDateFilter(against_1);
+        return lowerbound > value;
+    }
+    else if ( first_char == ">" ) {
+        var upperbound = parseDateFilter(against_1);
+        return upperbound < value;
+    } else {
+        // no comparative signs found
+        return false;
+    }   
+}
+
 exports.like = like;
 exports.likeFormatted = likeFormatted;
 exports.is = is;
 exports.number = number;
 exports.numberFormatted = numberFormatted;
 exports.date = date;
+exports.timeChunk = timeChunk;
