@@ -11,7 +11,16 @@ var SystemAlertCollection = BaseCollection.extend({
         return this.resourceURL('SystemAlert');
     },
 
-    responseTransform: 'alerts'
+    responseTransform: 'alerts',
+
+    subscribe: function() {
+        var topic = this.resourceTopic('SystemAlerts');
+        this.checkForDataSource();
+        this.listenTo(this.dataSource, topic, function(data) {
+            console.log('data from SystemAlerts topic: ', data);
+        });
+        this.dataSource.subscribe(topic);
+    }
 
 });
 

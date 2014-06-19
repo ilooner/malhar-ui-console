@@ -1,4 +1,5 @@
 var _ = require('underscore');
+var settings = DT.settings.systemAlerts;
 var text = DT.text;
 var kt = require('knights-templar');
 var ListPalette = DT.lib.ListPalette;
@@ -78,7 +79,7 @@ var SystemAlertsPalette = ListPalette.extend({
             function() {
                 setTimeout(function() {
                     self.collection.fetch();
-                }, 1000);
+                }, settings.REFRESH_TIMEOUT);
             }
         );
     },

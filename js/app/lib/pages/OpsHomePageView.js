@@ -83,7 +83,10 @@ var OpsHomePageView = BasePageView.extend({
                 name: 'SystemAlerts',
                 defaultId: 'System Alerts',
                 view: SystemAlertsWidget,
-                limit: 0
+                limit: 0,
+                inject: {
+                    dataSource: this.dataSource
+                }
             }
         ]);
         this.loadDashboards('default');

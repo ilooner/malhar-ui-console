@@ -83,7 +83,8 @@ exports = module.exports = {
         LogicalOperators         :'applications.:appId.logicalOperators',
         Containers               :'applications.:appId.containers',
         StramEvents              :'applications.:appId.events',
-        TupleRecorder            :'tupleRecorder.:startTime'
+        TupleRecorder            :'tupleRecorder.:startTime',
+        SystemAlerts             :'systemAlerts'
 
     },
 
@@ -111,6 +112,10 @@ exports = module.exports = {
     stramEvents: {
         TAIL_INIT_OFFSET: 50,
         ANIMATE_SCROLL_TIME: 500
+    },
+
+    systemAlerts: {
+        REFRESH_TIMEOUT: 3000
     },
 
     interpolateParams: function(string, params) {

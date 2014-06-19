@@ -15,6 +15,7 @@
  */
 
 var _ = require('underscore');
+var settings = DT.settings.systemAlerts;
 var kt = require('knights-templar');
 var BaseView = DT.widgets.ListWidget;
 var SystemAlertCollection = DT.lib.SystemAlertCollection;
@@ -33,9 +34,10 @@ var SystemAlertsWidget = BaseView.extend({
     initialize: function(options) {
         
         BaseView.prototype.initialize.call(this, options);
-        
-        var alerts = this.collection = new SystemAlertCollection();
+
+        var alerts = this.collection = new SystemAlertCollection([], { dataSource: options.dataSource});
         this.collection.fetch();
+        // this.collection.subscribe();
 
         this.subview('tabled', new Tabled({
             collection: this.collection,
@@ -49,7 +51,7 @@ var SystemAlertsWidget = BaseView.extend({
         this.collection.on('destroy', function() {
             setTimeout(function() {
                 alerts.fetch();
-            }, 1000);
+            }, settings.REFRESH_TIMEOUT);
         });
 
     },
