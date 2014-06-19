@@ -61,7 +61,12 @@ var SystemAlertModel = BaseModel.extend({
         return  BaseModel.prototype.save.call(this, attrs, options);
     },
 
-    'delete': function() {
+    'delete': function(force) {
+        if (force === true) {
+            this.destroy();
+            return;
+        }
+        
         var self = this;
         var modal = new DeleteAlertModal();
         modal.addToDOM().launch().promise().then(
