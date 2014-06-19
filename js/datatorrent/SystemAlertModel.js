@@ -1,5 +1,15 @@
 var _ = require('underscore');
+var text = require('./text');
 var BaseModel = require('./BaseModel');
+var Modal = require('./ModalView');
+
+var DeleteAlertModal = Modal.extend({
+    title: text('Permanently delete this alert?'),
+    confirmText: text('confirm'),
+    body: function() {
+        return 'Are you sure you want to remove this alert? This cannot be undone.';
+    }
+});
 
 var SystemAlertModel = BaseModel.extend({
 
@@ -49,6 +59,16 @@ var SystemAlertModel = BaseModel.extend({
         options.type = 'PUT';
         options.contentType = 'application/json';
         return  BaseModel.prototype.save.call(this, attrs, options);
+    },
+
+    'delete': function() {
+        var self = this;
+        var modal = new DeleteAlertModal();
+        modal.addToDOM().launch().promise().then(
+            function() {
+                self.destroy();
+            }
+        )
     },
 
     set: function(attrs, options) {

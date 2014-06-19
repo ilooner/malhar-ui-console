@@ -34,7 +34,7 @@ var SystemAlertsWidget = BaseView.extend({
         
         BaseView.prototype.initialize.call(this, options);
         
-        this.collection = new SystemAlertCollection();
+        var alerts = this.collection = new SystemAlertCollection();
         this.collection.fetch();
 
         this.subview('tabled', new Tabled({
@@ -46,6 +46,12 @@ var SystemAlertsWidget = BaseView.extend({
             collection: this.collection
         }));
         
+        this.collection.on('destroy', function() {
+            setTimeout(function() {
+                alerts.fetch();
+            }, 1000);
+        });
+
     },
 
     events: {

@@ -54,7 +54,7 @@ var textHash = {
     'free_mem_mb_label'          :  'free memory (mb)',
     'host_label'                 :  'host',
     'id_label'                   :  'id',
-    'in_alert_label'             :  'in alert?',
+    'in_effect_label'            :  'in effect?',
     'jvm_name_label'             :  'jvm name',
     'latency_ms_label'           :  'latency (ms)',
     'last_heartbeat_label'       :  'last heartbeat',

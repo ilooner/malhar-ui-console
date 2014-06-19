@@ -36,5 +36,5 @@ exports = module.exports = [
     { id: 'name', key: 'name', label: DT.text('name_label'), filter: 'like', format: nameFormat },
     { id: 'email', key: 'email', label: DT.text('email_label'), filter: 'like' },
     { id: 'timeThreshold', key: 'timeThresholdMillis', label: DT.text('timeThresholdMillis_label'), format: timeThresholdFormat, filter: 'timeChunk' },
-    { id: 'inAlert', key: 'alertStatus', label: DT.text('in_alert_label'), format: inAlertFormat, filter: inAlertFilter }
+    { id: 'inAlert', key: 'alertStatus', label: DT.text('in_effect_label'), format: inAlertFormat, filter: inAlertFilter }
 ];

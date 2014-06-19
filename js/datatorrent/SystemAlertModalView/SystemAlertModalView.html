@@ -31,7 +31,7 @@
         <% if (errors.condition) { %>
             <label for="condition" class="help-block validation-error"><%= errors.condition %></label>
         <% } %>
-        <textarea name="condition" class="system-alert-condition" data-bind="value:condition"></textarea>
+        <textarea name="condition" class="system-alert-condition"><%= model.condition %></textarea>
         <p class="help-block">
             Use the variable <code>_topic</code> to access system metrics.
         </p>

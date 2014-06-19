@@ -8,7 +8,8 @@ var SystemAlertsPalette = ListPalette.extend({
     events: {
         'click .refreshAlerts': 'refreshAlerts',
         'click .addNewAlert': 'addAlert',
-        'click .viewAlert': 'viewAlert'
+        'click .viewAlert': 'viewAlert',
+        'click .deleteAlert': 'deleteAlert'
     },
 
     refreshAlerts: function(e) {
@@ -32,15 +33,28 @@ var SystemAlertsPalette = ListPalette.extend({
         }
     },
 
+    deleteAlert: function(e) {
+        e.preventDefault();
+        var selected = this.getSelected()[0];
+        if (selected) {
+            selected['delete']();
+        }
+    },
+
     openModal: function(model) {
+        var self = this;
         var modalView = new SystemAlertModalView({
             model: model
         });
         modalView.addToDOM().launch();
         modalView.promise().then(
-            this.refreshAlerts.bind(this),
-            this.refreshAlerts.bind(this),
-            this.collection.fetch.bind(this.collection)
+            function() {},
+            function() {},
+            function() {
+                setTimeout(function() {
+                    self.collection.fetch();
+                }, 1000);
+            }
         );
     },
 

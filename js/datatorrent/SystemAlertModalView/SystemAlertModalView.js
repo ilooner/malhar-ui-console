@@ -3,6 +3,8 @@ var kt = require('knights-templar');
 var text = require('../text');
 var BaseView = require('../ModalView');
 var Epoxy = require('backbone.epoxy');
+var CodeMirror = require('codemirror');
+require('codemirror/mode/javascript/javascript');
 // var TopicDataCollection = require('../TopicDataCollection');
 var SystemAlertModalView = BaseView.extend({
 
@@ -10,7 +12,7 @@ var SystemAlertModalView = BaseView.extend({
     //     BaseView.prototype.initialize.call(this, options);
     // },
 
-    title: '<span data-bind="text:select(name, name, \'Untitled\')"></span> System Alert',
+    title: '\'<span data-bind="text:select(name, name, \'Untitled\')"></span>\' <span class="muted">System Alert</span>',
 
     confirmText: text('save alert'),
 
@@ -26,7 +28,8 @@ var SystemAlertModalView = BaseView.extend({
 
     body: function() {
         return this.template({
-            errors: this.model.validationError || {}
+            errors: this.model.validationError || {},
+            model: this.model.toJSON()
         });
     },
 
@@ -41,11 +44,28 @@ var SystemAlertModalView = BaseView.extend({
             el: this.el,
             model: this.model
         });
+
+        _.defer(this.setupCodeEditor);
+
         this.epoxyBindings.listenTo(this, 'clean_up', this.epoxyBindings.remove);
+    },
+
+    setupCodeEditor: function() {
+        var conditionCodeEditor = CodeMirror.fromTextArea(this.$('textarea.system-alert-condition')[0], {
+            theme: 'eclipse'
+        });
+        conditionCodeEditor.on('change', function(cm) {
+            cm.save();
+        });
+    },
+
+    updateConditionFromTextarea: function() {
+        this.model.set('condition', this.$('textarea.system-alert-condition').val());
     },
 
     onConfirm: function(evt) {
         evt.preventDefault();
+        this.updateConditionFromTextarea();
         if (this.model.isValid()) {
             this.model.save();
             this.deferred.resolve();
@@ -53,6 +73,7 @@ var SystemAlertModalView = BaseView.extend({
         } else {
             this.renderBody();
             this.epoxyBindings.applyBindings();
+            this.setupCodeEditor();
         }
     },
 
