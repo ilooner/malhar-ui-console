@@ -12,6 +12,13 @@
     </button>
     <% } %>
 
+    <% if (selected.length > 1) { %>
+    <button class="deleteAlerts btn btn-danger">
+        <i class="icon-trash icon-white"></i>
+        delete selected
+    </button>
+    <% } %>
+
     <button class="btn btn-success addNewAlert">
         <i class="icon-plus icon-white"></i>
         add alert
