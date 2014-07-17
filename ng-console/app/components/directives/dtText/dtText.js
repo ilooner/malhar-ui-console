@@ -16,22 +16,34 @@
 
 'use strict';
 
-angular.module('app.components.directives.dtText', ['app.components.services.dtText'])
-  .directive('dtText', function (dtText) {
-    return {
-      restrict: 'A',
-      scope: false,
-      link: function postLink(scope, element, attrs) {
-        element.text(dtText.get(attrs.dtText));
-      }
-    };
-  })
-  .directive('dtTextTitle', function(dtText) {
-    return {
-      restrict: 'A',
-      scope: false,
-      link: function postLink(scope, element, attrs) {
-        element.attr('title', dtText.get(attrs.dtTextTitle));
-      }
-    };
-  });
+angular.module('app.components.directives.dtText', [
+  'app.components.services.dtText',
+  'ui.bootstrap.tooltip'
+])
+.directive('dtText', function (dtText) {
+  return {
+    restrict: 'A',
+    scope: false,
+    link: function postLink(scope, element, attrs) {
+      element.text(dtText.get(attrs.dtText));
+    }
+  };
+})
+.directive('dtTextTitle', function(dtText) {
+  return {
+    restrict: 'A',
+    scope: false,
+    link: function postLink(scope, element, attrs) {
+      element.attr('title', dtText.get(attrs.dtTextTitle));
+    }
+  };
+})
+.directive('dtTextTooltip', function(dtText) {
+  return {
+    restrict: 'A',
+    scope: false,
+    compile: function(tElement, attrs) {
+      attrs.$set('tooltip', dtText.get(attrs.dtTextTooltip));
+    }
+  };
+});
