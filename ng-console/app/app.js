@@ -33,6 +33,7 @@ angular.module('app', [
   'app.components.filters.byte',
   'app.components.filters.timeSince',
   'app.components.directives.dtText',
+  'app.components.directives.title',
   'app.components.services.dtText',
   'app.components.services.extend',
 
