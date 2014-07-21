@@ -18,14 +18,9 @@
 
 'use strict';
 
-describe('Directive: windowId', function () {
+describe('Directive: logicalOperatorStatus', function () {
 
-  var element, scope, rootScope, isoScope, compile, relativeTimestamp;
-
-  var windowValue = '5896637953039405386';
-  var windowOffset = 4426;
-  var windowBasetime = 1372918010000;
-  var STREAMING_WINDOW_SIZE_MILLIS = '500';
+  var element, scope, rootScope, isoScope, compile;
 
   beforeEach(module('templates-main'));
 
@@ -34,37 +29,46 @@ describe('Directive: windowId', function () {
   });
 
   // load the directive's module
-  beforeEach(module('app.components.directives.windowId'));
+  beforeEach(module('app.components.directives.logicalOperatorStatus', function($provide) {
+    // Inject dependencies like this:
+    // $provide.value('', mockThing);
 
-  beforeEach(inject(function ($compile, $rootScope, $filter) {
-    // Cache these for reuse    
+  }));
+
+  beforeEach(inject(function ($compile, $rootScope) {
+    // Cache these for reuse
     rootScope = $rootScope;
     compile = $compile;
-    relativeTimestamp = $filter('relativeTimestamp');
 
     // Other setup, e.g. helper functions, etc.
 
     // Set up the outer scope
     scope = $rootScope.$new();
-    scope.myWindowId = windowValue;
-    scope.myWindowSize = STREAMING_WINDOW_SIZE_MILLIS;
+    scope.statuses = {
+      ACTIVE: 3,
+      PENDING_DEPLOY: 1,
+      INACTIVE: 2
+    };
 
     // Define and compile the element
-    element = angular.element('<div window-id="myWindowId" window-size="myWindowSize"></div>');
+    element = angular.element('<div logical-operator-status="statuses"></div>');
     element = compile(element)(scope);
     scope.$digest();
     isoScope = element.isolateScope();
   }));
 
-  it('should put the offset in the element', function() {
-    expect( $.trim(element.text()) ).toEqual( windowOffset + '' );
+  afterEach(function() {
+    // tear down here
   });
 
-  it('should add a tooltip attribute when timestamp is defined', function() {
-    expect(element.find('span').attr('tooltip')).toEqual(relativeTimestamp(new Date(windowBasetime + (windowOffset * STREAMING_WINDOW_SIZE_MILLIS) ) ));
-    scope.myWindowSize = null;
-    scope.$digest();
-    expect(element.find('span').attr('tooltip')).toBeFalsy();
+  it('should have a span.status-* for each key in the statuses object', function() {
+    expect(element.find('span.status-active').length).toEqual(1);
+    expect(element.find('span.status-pending_deploy').length).toEqual(1);
+    expect(element.find('span.status-inactive').length).toEqual(1);
+  });
+
+  it('should split each status with a comma', function() {
+    expect(element.text()).toMatch(/\d,\d,\d/);
   });
 
 });
