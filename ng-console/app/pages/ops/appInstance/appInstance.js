@@ -50,7 +50,12 @@ angular.module('app.pages.ops.appInstance', [
 
     var widgetDefinitions = [
       new AppInstanceOverviewWidgetDef({ name: 'Application Overview' }),
-      new LogicalDagWidgetDefinition({ name: 'LogicalDAG' })
+      new LogicalDagWidgetDefinition({
+        name: 'LogicalDAG',
+        dataModelOptions: {
+          appId: $scope.appId
+        }
+      })
     ];
 
     var defaultWidgets = _.clone(widgetDefinitions);
